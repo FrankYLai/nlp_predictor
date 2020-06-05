@@ -12,7 +12,6 @@ def main():
     X, y = encoded_data[:,:-1], encoded_data[:,-1]
 
     y = to_categorical(y, num_classes=possible_chars)
-    print(possible_chars)
     X_tr, X_val, y_tr, y_val = train_test_split(X, y, test_size=0.1, random_state=42)
     print('Train shape:', X_tr.shape, 'Val shape:', X_val.shape)
 
