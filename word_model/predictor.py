@@ -41,6 +41,7 @@ def main():
     with open(args.model, 'rb') as pickle_file:
         (model, tokens) = pickle.load(pickle_file)
     while True:
+        print("input some seed text")
         seed_text = input()
         for i in range(args.n):
             nextword = predict(seed_text, model, tokens)
