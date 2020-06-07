@@ -2,13 +2,13 @@ from includes import *
 import preprocessing
 
 def main():
-    infile = open("Crime_and_Punishment.txt",'r')
+    infile = open("sherlock.txt",'r')
     data = infile.read()
     infile.close()
 
-    sequence, tokens =preprocessing.preprocessing(data)
+    sequence, tokens =preprocessing.preprocessing(data,True)
     encoded_data = np.array(sequence)
-    vocab = len(tokens)
+    vocab = len(tokens)+1 #since we skip 0 array
 
     X, y= encoded_data[:, :-1],  encoded_data[:,-1]
     X_length = X.shape[1]
@@ -32,7 +32,7 @@ def main():
     model.fit(X_tr, y_tr, epochs=100, verbose=2, validation_data=(X_val, y_val), batch_size=128)
     
     
-    filename = "model"
+    filename = "model2"
     outfile = open(filename,'wb')
     pickle.dump((model,tokens),outfile)
     outfile.close()
