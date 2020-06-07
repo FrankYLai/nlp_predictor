@@ -1,8 +1,13 @@
-from includes import *
 import preprocessing
+import pickle
+import argparse
 from keras.preprocessing.sequence import pad_sequences
+from keras.models import Sequential
 
-
+parser = argparse.ArgumentParser()
+parser.add_argument('model', help='word model wish to be used')
+parser.add_argument('n', help ='number of words to generate',type=int )
+args = parser.parse_args()
 
 def predict(seed_text, model, tokens):
     #data conditioning
@@ -33,18 +38,16 @@ def predict(seed_text, model, tokens):
 
 #used for testing the trained model
 def main():
-    with open('model2', 'rb') as pickle_file:
+    with open(args.model, 'rb') as pickle_file:
         (model, tokens) = pickle.load(pickle_file)
     while True:
         seed_text = input()
-        for i in range(10):
+        for i in range(args.n):
             nextword = predict(seed_text, model, tokens)
             seed_text = seed_text + " " + nextword
         print (seed_text)
 
         
-
-
 
 
 if __name__ == "__main__":
